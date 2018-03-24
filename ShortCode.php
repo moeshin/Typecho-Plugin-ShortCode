@@ -166,7 +166,6 @@ class ShortCode{
 	public static function contentEx($content,$archive,$last){
 		if($last) $content = $last;
 		return TOC::build($content,$archive->is('single'));
-		//return $content;
 	}
 	
 	/**
