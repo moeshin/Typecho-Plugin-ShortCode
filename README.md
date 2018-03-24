@@ -1,5 +1,6 @@
 # Typecho ShortCode 短代码插件
 Typecho ShortCode 是一款用于自定义短代码的Typecho插件
+[去GitHub下载](https://github.com/moeshin/Typecho-Plugins-ShortCode)
 ## 函数说明
 使用以下函数来自定义短代码，均为公开静态
 ### ShortCode::set
@@ -47,14 +48,14 @@ name|string|短代码名称
 attr|string|短代码属性
 text|string|短代码内容
 code|string|整条短代码内容
-## 注册短代码例子
-### #1 一个对一个
+## 注册短代码栗子
+### \#1 一个对一个
 ```php
 ShortCode::set('video',function ShorCode($name,$attr,$text,$code){
 	return '<video controls="controls"'.$attr.'><source src="'.$text.'"></video>';
 });
 ```
-### #2 多个对一个
+### \#2 多个对一个
 ```php
 ShortCode::set(['video','audio'],'ShorCode');
 function ShorCode($name,$attr,$text,$code){
@@ -67,3 +68,46 @@ function ShorCode($name,$attr,$text,$code){
 	return $code;
 }
 ```
+## [TOC]自动生成目录说明
+上下不要有文本，自己占一行，与`<!--import-->`写法一样
+在文章列表里不显示也不生成目录
+
+### 举个栗子
+MarkDown：
+```markdown
+[TOC]
+# 文章大标题
+## 文章中标题
+### 文章小标题
+...
+```
+HTML：
+```html
+<div class="TOC">
+	<span>目录</span>
+	<ol>
+		<li>
+			<a href="#TOC0">文章大标题</a>
+			<ol>
+				<li>
+					<a href="#TOC1">文章中标题</a>
+					<ol>
+						<li>
+							<a href="#TOC2">文章小标题</a>
+						</li>
+					</ol>
+				</li>
+			</ol>
+		</li>
+	</ol>
+</div>
+<h1 id="TOC0">文章大标题</h1>
+<h2 id="TOC1">文章中标题</h2>
+<h3 id="TOC2">文章小标题</h3>
+<p>...</p>
+```
+
+## 更新
+**2018.03.24**
+- 添加[TOC]自动生成目录功能
+- 支持短代码转义（在短代码前加上反斜杠）

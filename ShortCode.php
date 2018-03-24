@@ -1,13 +1,15 @@
 <?php
 /** 注册插件 */
-Typecho_Plugin::factory('Widget_Abstract_Contents')->content = ['ShortCode', 'plugin'];
+Typecho_Plugin::factory('Widget_Abstract_Contents')->content = ['ShortCode', 'content'];
+Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx = ['ShortCode', 'contentEx'];
+require_once 'TOC.php';
 
 /**
  * Short Code
  * 
  * @package ShortCode 
  * @author 小さな手は
- * @version 1.0.0
+ * @version 1.0.1
  * @link https://www.littlehands.site/
  */
 class ShortCode{
@@ -119,11 +121,13 @@ class ShortCode{
 		$RegExp = '((?:"[^"]*"|'."'[^']*'|[^'".'"\]])*)';
 		foreach(array_keys(self::$ShortCodes) as $name)
 			array_push($pattern,
-				"#\[($name)$RegExp\](.*?)\[/$name\]#i",
-				"#\[($name)$RegExp\]()#i"
+				"#\\\\\[|\[($name)$RegExp\](.*?)\[/$name\]#i",
+				"#\\\\\[|\[($name)$RegExp\]()#i"
 			);
 		return preg_replace_callback($pattern,function($a){
-			$name = $a[1];
+			if(count($a) == 1)
+				return $a[0];
+			$name = strtolower($a[1]);
 			$ShortCodes = self::$ShortCodes;
 			$callback = $ShortCodes[$name];
 			if(array_key_exists($name,$ShortCodes)&&is_callable($callback))
@@ -134,7 +138,7 @@ class ShortCode{
 	}
 	
 	/**
-	 * 插件处理
+	 * 插件处理 content
 	 *
 	 * @access public
 	 * @param string
@@ -142,12 +146,27 @@ class ShortCode{
 	 * @param string
 	 * @return string
 	 */
-	public static function plugin($content,$archive,$last){
+	public static function content($content,$archive,$last){
 		if($last) $content = $last;
 		$content = self::handle($content);
 		if(Typecho_Plugin::export()['handles']['Widget_Abstract_Contents:content'] === [[__Class__,__Function__]]||self::$isForce)
 			return $archive->isMarkdown?$archive->markdown($content):$archive->autoP($content);
 		return $content;
+	}
+	
+	/**
+	 * 插件处理 contentEx
+	 *
+	 * @access public
+	 * @param string
+	 * @param Widget_Abstract_Contents
+	 * @param string
+	 * @return string
+	 */
+	public static function contentEx($content,$archive,$last){
+		if($last) $content = $last;
+		return TOC::build($content,$archive->is('single'));
+		//return $content;
 	}
 	
 	/**
@@ -161,12 +180,13 @@ class ShortCode{
 	}
 	
 	/**
-	 * 构造函数,初始化组件
+	 * 构造函数
 	 *
 	 * @access public
 	 */
 	public function __construct(){
 		self::$instance = $this;
 	}
+	
 }
 ?>
