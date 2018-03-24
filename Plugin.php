@@ -5,7 +5,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * 
  * @package ShortCode 
  * @author 小さな手は
- * @version 1.0.0
+ * @version 1.0.1
  * @link https://www.littlehands.site/
  */
 class ShortCode_Plugin implements Typecho_Plugin_Interface
