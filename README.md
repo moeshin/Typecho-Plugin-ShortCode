@@ -1,5 +1,6 @@
 # Typecho ShortCode 短代码插件
 Typecho ShortCode 是一款用于自定义短代码的Typecho插件
+
 [GitHub 地址](https://github.com/moeshin/Typecho-Plugins-ShortCode) | [GitHub 下载](https://codeload.github.com/moeshin/Typecho-Plugins-ShortCode/zip/master)
 
 由于Typecho目前自带的MarkDown解析不支持许多HTML标签，可能影响你使用ShortCode短代码
