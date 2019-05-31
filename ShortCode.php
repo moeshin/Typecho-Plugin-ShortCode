@@ -131,7 +131,7 @@ class ShortCode{
 			$ShortCodes = self::$ShortCodes;
 			$callback = $ShortCodes[$name];
 			if(array_key_exists($name,$ShortCodes)&&is_callable($callback))
-				return call_user_func($callback,$name,$a[2],$a[3],$a[0]);
+				return call_user_func($callback, $name, $a[2], trim($a[3]), $a[0]);
 			else
 				return $a[0];
 		},$content);
