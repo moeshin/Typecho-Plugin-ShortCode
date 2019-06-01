@@ -121,7 +121,7 @@ class ShortCode{
 		$RegExp = '((?:"[^"]*"|'."'[^']*'|[^'".'"\]])*)';
 		foreach(array_keys(self::$ShortCodes) as $name)
 			array_push($pattern,
-				"#\\\\\[|\[($name)$RegExp\]([\s\S])\[/$name\]#i",
+				"#\\\\\[|\[($name)$RegExp\]([\s\S]*?)\[/$name\]#i",
 				"#\\\\\[|\[($name)$RegExp\]()#i"
 			);
 		return preg_replace_callback($pattern,function($a){
