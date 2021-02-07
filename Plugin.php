@@ -18,6 +18,7 @@ class ShortCode_Plugin implements Typecho_Plugin_Interface
 	 * @throws Typecho_Plugin_Exception
 	 */
 	public static function activate(){
+        Typecho_Plugin::factory('admin/common.php')->begin = [__Class__, 'init'];
 		Typecho_Plugin::factory('Widget_Archive')->handleInit = [__Class__, 'init'];
 	}
 
@@ -53,11 +54,9 @@ class ShortCode_Plugin implements Typecho_Plugin_Interface
 	 * 插件初始化
 	 *
 	 * @access public
-	 * @param Widget_Abstract
-	 * @param Typecho_Db_Query
 	 * @return void
 	 */
-	public static function init($archive,$select){
+	public static function init(){
 		require_once 'ShortCode.php';
 	}
 }

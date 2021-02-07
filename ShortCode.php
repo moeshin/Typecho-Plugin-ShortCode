@@ -83,7 +83,7 @@ class ShortCode{
 	 * @return ShortCode
 	 */
 	public static function removeAll(){
-		self::$ShortCodes[$key] = [];
+		self::$ShortCodes[] = [];
 		return self::instance();
 	}
 	
@@ -96,13 +96,13 @@ class ShortCode{
 	public static function get(){
 		return self::$ShortCodes;
 	}
-	
+
 	/**
 	 * 强制处理文本
 	 * 使用此插件后Markdown或AutoP失效，使用此函数，并传入<code>true</code>值
 	 * @access public
 	 * @param bool
-	 * @return array
+	 * @return bool
 	 */
 	public static function isForce($bool = null){
 		if(is_bool($bool)) self::$isForce = $bool;
@@ -188,4 +188,3 @@ class ShortCode{
 	}
 	
 }
-?>
